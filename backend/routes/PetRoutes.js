@@ -16,6 +16,7 @@ router.post(
 router.get("/mypets", verifyToken, PetController.getAllUserPets);
 router.get("/myadoptions", verifyToken, PetController.getAllUserAdoptions);
 router.get("/:id", PetController.getPetById);
+router.delete("/:id", PetController.removePetById);
 router.get("/", PetController.getAll);
 
 module.exports = router;
