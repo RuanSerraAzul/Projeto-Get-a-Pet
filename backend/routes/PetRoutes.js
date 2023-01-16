@@ -18,10 +18,12 @@ router.get("/myadoptions", verifyToken, PetController.getAllUserAdoptions);
 router.get("/:id", PetController.getPetById);
 router.delete("/:id", PetController.removePetById);
 router.get("/", PetController.getAll);
+router.patch("/schedule/:id", verifyToken, PetController.schedule);
 router.patch(
     "/:id",
     verifyToken,
     imageUpload.array("images"),
     PetController.updatePet
 );
+
 module.exports = router;
