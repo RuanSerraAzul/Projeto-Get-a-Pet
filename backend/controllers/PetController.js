@@ -183,4 +183,96 @@ module.exports = class PetController {
 
         res.status(200).json({ message: "Pet removido com sucesso!" });
     }
+
+    static async updatePet(req, res) {
+        const id = req.params.id;
+
+        const { name, age, weight, color, available } = req.body;
+
+        const images = req.files;
+
+        const updateData = {};
+
+        //checar se o ID é valido
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({
+                message: "ID invalido",
+            });
+            return;
+        }
+        //checar se pet existe
+        const pet = await Pet.findOne({ _id: id });
+
+        if (!pet) {
+            res.status(404).json({
+                message: "Pet não encontrado",
+            });
+            return;
+        }
+
+        //checar se o pet pertence ao usuario logado
+        const token = getToken(req);
+        const user = await getUserByToken(token);
+
+        if (pet.user._id.toString() != user._id.toString()) {
+            res.status(404).json({
+                message:
+                    "Houve um problema em processar sua solicitação, tente novamente mais tarde!",
+            });
+            return;
+        }
+
+        //validation
+        if (!name) {
+            res.status(422).json({
+                message: "O nome é obrigatorio",
+            });
+            return;
+        } else {
+            updateData.name = name;
+        }
+
+        if (!age) {
+            res.status(422).json({
+                message: "A idade é obrigatoria",
+            });
+            return;
+        } else {
+            updateData.age = age;
+        }
+
+        if (!weight) {
+            res.status(422).json({
+                message: "O peso é obrigatorio",
+            });
+            return;
+        } else {
+            updateData.weight = weight;
+        }
+
+        if (!color) {
+            res.status(422).json({
+                message: "A cor é obrigatoria",
+            });
+            return;
+        } else {
+            updateData.color = color;
+        }
+
+        if (images.length === 0) {
+            res.status(422).json({
+                message: "A imagem é obrigatoria",
+            });
+            return;
+        } else {
+            updateData.images = [];
+            images.map((image) => {
+                updateData.images.push(image.filename);
+            });
+        }
+
+        await Pet.findByIdAndUpdate(id, updateData);
+
+        res.status(200).json({ message: "Pet atualizado com sucesso" });
+    }
 };
