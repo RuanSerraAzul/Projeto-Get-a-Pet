@@ -26,4 +26,6 @@ router.patch(
     PetController.updatePet
 );
 
+router.patch("/conclude/:id", verifyToken, PetController.concludeAdoption);
+
 module.exports = router;
