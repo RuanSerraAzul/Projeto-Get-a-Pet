@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_DB_HOST: mongo
+      MONGO_DB_PORT: 27017
+      MONGO_DB_NAME: get_a_pet
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"

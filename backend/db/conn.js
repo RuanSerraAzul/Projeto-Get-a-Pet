@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 async function main() {
-    await mongoose.connect("mongodb://localhost:27017/getapet"); //mude as credenciais do DB
+    await mongoose.connect("mongodb://mongo:27017/getapet"); //mude as credenciais do DB, se necessário
     console.log("Conectado ao Banco de Dados");
 }
 
