@@ -26,7 +26,7 @@ Get A Pet é uma plataforma de adoção de animais que conecta pessoas que quere
 
 ## Contribuindo
 
-Se você quiser contribuir com este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+Se você quiser contribuir com este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request, ainda faltam algumas coisas a serem terminadas.
 
 ## Licença
 
